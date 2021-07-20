@@ -5,6 +5,10 @@ export const updateCollections = (collections) => ({
   payload: collections,
 });
 
-export const toggleShopSpinner = () => ({
-  type: shopActionTypes.TOGGLE_SPINNER,
-});
+export const toggleShopSpinner = (value) => {
+  console.log("SPINNER-VALUE ", value);
+  return {
+    type: shopActionTypes.TOGGLE_SPINNER,
+    payload: value,
+  };
+};

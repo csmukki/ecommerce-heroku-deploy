@@ -15,7 +15,7 @@ export const shopReducer = (state = INITIAL_STATE, action) => {
     case shopActionTypes.TOGGLE_SPINNER:
       return {
         ...state,
-        loading: !state.loading,
+        loading: action.payload,
       };
     default:
       return state;

@@ -23,10 +23,15 @@ class ShopPage extends React.Component {
         collectionRef.onSnapshot(snapshot => {
             const convertedCollections = collectionsForReducer(snapshot);
             updateCollections(convertedCollections)
-            toggleShopSpinner();
+            toggleShopSpinner(false);
         });
 
     }
+
+    componentWillUnmount() {
+        this.props.toggleShopSpinner(true);
+    }
+
 
     render() {
         const {loading} = this.props;
@@ -41,7 +46,7 @@ class ShopPage extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     updateCollections: collections => dispatch(updateCollections(collections)), 
-    toggleShopSpinner: () => dispatch(toggleShopSpinner())
+    toggleShopSpinner: value => dispatch(toggleShopSpinner(value))
 });
 
 const mapStateToProps = createStructuredSelector({
