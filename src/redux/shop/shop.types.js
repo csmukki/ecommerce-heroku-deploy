@@ -1,0 +1,4 @@
+export const shopActionTypes = {
+  UPDATE_COLLECTIONS: "UPDATE_COLLECTIONS",
+  TOGGLE_SPINNER: "TOGGLE_SPINNER",
+};
