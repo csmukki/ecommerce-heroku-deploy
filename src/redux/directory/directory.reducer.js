@@ -2,20 +2,28 @@ import { directoryActionTypes } from "./directory.types";
 
 const INITIAL_STATE = {
   sections: null,
-  loading: true,
+  isFetching: false,
+  errorMessage: "",
 };
 
 export const directoryReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case directoryActionTypes.UPDATE_SECTIONS:
+    case directoryActionTypes.FETCH_SECTIONS_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case directoryActionTypes.FETCH_SECTIONS_SUCCESS:
       return {
         ...state,
         sections: action.payload,
+        isFetching: false,
       };
-    case directoryActionTypes.TOGGLE_SPINNER:
+    case directoryActionTypes.FETCH_SECTIONS_FAILURE:
       return {
         ...state,
-        loading: !state.loading,
+        isFetching: false,
+        errorMessage: action.payload,
       };
     default:
       return state;

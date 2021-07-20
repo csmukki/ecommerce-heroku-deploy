@@ -7,7 +7,7 @@ export const selectSections = createSelector(
   ({ sections }) => (sections ? sections : [])
 );
 
-export const selectLoading = createSelector(
+export const selectIsFetching = createSelector(
   [selectDirectory],
-  (directory) => directory.loading
+  (directory) => directory.isFetching
 );
