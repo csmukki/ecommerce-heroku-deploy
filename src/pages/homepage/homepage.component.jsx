@@ -15,6 +15,7 @@ const DirectoryWithSpinner = WithSpinner(Directory);
 class Homepage extends React.Component {
 
     componentDidMount() {
+        const {fetchSectionsStartAsync} = this.props;
         fetchSectionsStartAsync();
     }
 
@@ -22,7 +23,7 @@ class Homepage extends React.Component {
         const {isLoading} = this.props;
         return(
             <HomepageContainer>
-                <Directory isLoading={isLoading} />
+                <DirectoryWithSpinner isLoading={isLoading} />
                 <NoteContainer>
                         For Better look and feel view this in desktop mode,
                         Since for now it is not responsive...

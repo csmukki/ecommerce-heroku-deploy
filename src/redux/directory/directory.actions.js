@@ -18,17 +18,12 @@ const fetchSectionsFailure = (errorMessage) => ({
 export const fetchSectionsStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchSectionsStart());
-    console.log("START");
     const collectionRef = firestore.collection("sections");
     collectionRef
       .get()
       .then((snapshot) => {
         const convertedSections = sectionsForReducer(snapshot);
-        setTimeout(
-          () => dispatch(fetchSectionsSuccess(convertedSections)),
-          3000
-        );
-        console.log("SUCCESS");
+        dispatch(fetchSectionsSuccess(convertedSections));
       })
       .catch((error) => {
         dispatch(fetchSectionsFailure(error.message));
