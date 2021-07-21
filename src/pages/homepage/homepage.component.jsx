@@ -17,5 +17,15 @@ const Homepage = () => (
 
 );
 
+const mapStateToProps = createStructuredSelector({
+    sections: selectSections, 
+    isLoading: selectIsFetching, 
+});
 
-export default Homepage;
+const mapDispatchToProps = dispatch => ({
+    fetchSectionsStartAsync: () => dispatch(fetchSectionsStartAsync())
+});
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
