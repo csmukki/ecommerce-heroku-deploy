@@ -1,24 +1,39 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
 import { HomepageContainer, NoteContainer } from './homepage.styles';
+import {fetchSectionsStartAsync} from '../../redux/directory/directory.actions';
+import {selectIsFetching} from '../../redux/directory/directory.selectors';
 import Directory from '../../components/directory/directory.component';
+import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
 
+const DirectoryWithSpinner = WithSpinner(Directory);
 
 
-const Homepage = () => (
-    <HomepageContainer>
-        <Directory />
-        <NoteContainer>
-                For Better look and feel view this in desktop mode,
-                Since for now it is not responsive...
-        </NoteContainer>
-    </HomepageContainer>
+class Homepage extends React.Component {
 
-);
+    componentDidMount() {
+        fetchSectionsStartAsync();
+    }
+
+    render() {
+        const {isLoading} = this.props;
+        return(
+            <HomepageContainer>
+                <Directory isLoading={isLoading} />
+                <NoteContainer>
+                        For Better look and feel view this in desktop mode,
+                        Since for now it is not responsive...
+                </NoteContainer>
+            </HomepageContainer>
+        
+        );
+    }
+}
 
 const mapStateToProps = createStructuredSelector({
-    sections: selectSections, 
     isLoading: selectIsFetching, 
 });
 

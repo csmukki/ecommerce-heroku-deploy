@@ -26,7 +26,7 @@ export const fetchSectionsStartAsync = () => {
         const convertedSections = sectionsForReducer(snapshot);
         setTimeout(
           () => dispatch(fetchSectionsSuccess(convertedSections)),
-          4000
+          3000
         );
         console.log("SUCCESS");
       })
