@@ -9,7 +9,7 @@ import { HeaderContainer,
         LogoContainer} from './header.styles';
 import CartIcon from '../cart-icon/cart-icon.component';
 
-const Header = ({history}) => (
+const Header = () => (
     <HeaderContainer>
        <LogoContainer to="/">
            <Logo />

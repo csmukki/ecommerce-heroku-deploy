@@ -7,9 +7,9 @@ export const selectCollections = createSelector(
   (shop) => shop.collections
 );
 
-export const selectLoading = createSelector(
+export const selectIsFetching = createSelector(
   [selectShop],
-  (shop) => shop.loading
+  (shop) => shop.isFetching
 );
 
 export const selectCollectionsForPreview = createSelector(
@@ -21,4 +21,15 @@ export const selectCollectionsForPreview = createSelector(
           return Accumulator;
         }, [])
       : []
+);
+
+export const selectCollectionMapToUrl = (matchUrlParam) => {
+  return createSelector([selectCollections], (collections) =>
+    collections ? collections[matchUrlParam] : null
+  );
+};
+
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.collections
 );
