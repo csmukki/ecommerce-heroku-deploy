@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 
 import { HomepageContainer } from './homepage.styles';
-import {fetchSectionsStartAsync} from '../../redux/directory/directory.actions';
+import {fetchSectionsStart} from '../../redux/directory/directory.actions';
 import DirectoryContainer from '../../components/directory/directory.container';
 
 
@@ -11,8 +11,8 @@ import DirectoryContainer from '../../components/directory/directory.container';
 class Homepage extends React.Component {
 
     componentDidMount() {
-        const {fetchSectionsStartAsync} = this.props;
-        fetchSectionsStartAsync();
+        const {fetchSectionsStart} = this.props;
+        fetchSectionsStart();
     }
 
     render() {
@@ -27,7 +27,7 @@ class Homepage extends React.Component {
 
 
 const mapDispatchToProps = dispatch => ({
-    fetchSectionsStartAsync: () => dispatch(fetchSectionsStartAsync())
+    fetchSectionsStart: () => dispatch(fetchSectionsStart())
 });
 
 

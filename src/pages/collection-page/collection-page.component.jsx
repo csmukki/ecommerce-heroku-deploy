@@ -20,8 +20,8 @@ const CollectionPage = ({collection}) => {
         <TitleContainer>{title}</TitleContainer>
         <ItemsContainer>
             {
-                items.map(({id, ...otherProps}) => (
-                    <CollectionItemContainer key={id} {...otherProps} />
+                items.map(item => (
+                    <CollectionItemContainer key={item.id} item={item} />
                 ))
             }
         </ItemsContainer>

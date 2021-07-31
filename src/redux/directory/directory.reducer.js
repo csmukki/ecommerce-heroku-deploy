@@ -18,6 +18,7 @@ export const directoryReducer = (state = INITIAL_STATE, action) => {
         ...state,
         sections: action.payload,
         isFetching: false,
+        errorMessage: null,
       };
     case directoryActionTypes.FETCH_SECTIONS_FAILURE:
       return {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 
@@ -7,9 +8,12 @@ import { HeaderContainer,
         OptionLink, 
         OptionDiv, 
         LogoContainer} from './header.styles';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { createStructuredSelector } from 'reselect';
 
-const Header = () => (
+const Header = ({hidden}) => (
     <HeaderContainer>
        <LogoContainer to="/">
            <Logo />
@@ -22,7 +26,15 @@ const Header = () => (
                 <CartIcon />
             </OptionDiv>
         </OptionsContainer>
+        {
+            hidden ? null : <CartDropdown />
+        }
     </HeaderContainer>
 );
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+    hidden: selectCartHidden
+});
+
+
+export default connect(mapStateToProps)(Header);

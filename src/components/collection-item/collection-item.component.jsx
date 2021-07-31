@@ -1,14 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import {CollectionItemContainer, 
-        ImageContainer, 
-        DetailsContainer, 
-        NameContainer, 
-        PriceContainer,
-        CustomButtonContainer } from './collection-item.styles';
+    ImageContainer, 
+    DetailsContainer, 
+    NameContainer, 
+    PriceContainer,
+    CustomButtonContainer } from './collection-item.styles';
+import { addItemToCart } from '../../redux/cart/cart.actions';
 
 
-const CollectionItem = ({name, price, imageUrl}) => {
+const CollectionItem = ({item, addItemToCart}) => {
+    console.log("C_I: ", item);
+    const {name, price, imageUrl} = item;
     return (
         <CollectionItemContainer>
             <ImageContainer imageUrl={imageUrl}/>
@@ -16,9 +20,15 @@ const CollectionItem = ({name, price, imageUrl}) => {
                 <NameContainer>{name}</NameContainer>
                 <PriceContainer>{price}</PriceContainer>
             </DetailsContainer>
-            <CustomButtonContainer>ADD TO CART</CustomButtonContainer>
+            <CustomButtonContainer
+                onClick={() => addItemToCart(item)}
+            >ADD TO CART</CustomButtonContainer>
         </CollectionItemContainer>
     );
 }
  
-export default CollectionItem;
+const mapDispatchToProps = dispatch => ({
+    addItemToCart: item => dispatch(addItemToCart(item))
+});
+
+export default connect(null, mapDispatchToProps)(CollectionItem);
