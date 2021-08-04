@@ -1,5 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
+import { toast } from "react-toastify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA17nfX-CQRcTidZUL0HiDRJkoD4wBYgN0",
@@ -14,6 +16,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const firestore = firebase.firestore();
+export const auth = firebase.auth();
+
+export var googleProvider = new firebase.auth.GoogleAuthProvider();
+
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+//###################################################################::
 
 export const addCollectionAndDocument = (collectionKey, data) => {
   if (!collectionKey) return;
@@ -67,4 +76,40 @@ export const collectionsForReducer = (snapshot) => {
     Accumulator[collection.title.toLowerCase()] = collection;
     return Accumulator;
   }, {});
+};
+
+export const createUserProfileDocument = async (
+  authUser,
+  ...additionalData
+) => {
+  if (!authUser) return;
+
+  const userRef = firestore.doc(`users/${authUser.uid}`);
+  const userSnapshot = await userRef.get();
+
+  if (!userSnapshot.exists) {
+    try {
+      const { displayName, email } = authUser;
+      const createdAt = new Date();
+      userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      toast.warning("Error saving user to database\n", error.message);
+    }
+  }
+
+  return userRef;
+};
+
+export const getCurrentUserAuth = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      unsubscribe();
+      resolve(authUser);
+    }, reject);
+  });
 };

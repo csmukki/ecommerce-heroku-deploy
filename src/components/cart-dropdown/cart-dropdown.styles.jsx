@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import CustomButton from '../custom-button/custom-button.component';
+
 
 export const CartDropdownContainer = styled.div`
     position: absolute;
@@ -28,6 +30,15 @@ export const EmptyMessageContainer = styled.span`
     color: darkred;
 `;
 
-export const CustomButtonContainer = styled.button`
+export const CustomButtonContainer = styled(CustomButton)`
     margin-top: auto;
+    background-color: purple;
+    color: white;
+    border: 2px solid black;
+
+    &:hover {
+        background-color: lightblue;
+        color: black;
+        border: 2px solid black;
+    }
 `;
